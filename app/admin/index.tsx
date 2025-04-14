@@ -9,7 +9,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>This is List Events .</Text>
+      <Text>This is Dashboard.</Text>
     </View>
   );
 }
