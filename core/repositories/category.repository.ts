@@ -5,6 +5,6 @@ import { Category } from "../models/Category";
 export interface CategoryRepository {
      getAllCategories(): Category[];
      createCategory(newCategory: CreateCategoryDTO): Category;
-     updateCategory(updateCategory: UpdateCategoryDTO): Category;
-     deleteCategory(): boolean
+     updateCategory( id: number, updateCategory: UpdateCategoryDTO): boolean;
+     deleteCategory(id: number): boolean
 }

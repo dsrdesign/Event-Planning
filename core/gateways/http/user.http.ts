@@ -4,7 +4,7 @@ import { UserRepository } from "@/core/repositories/user.repository";
 
 export class HttpUser implements UserRepository {
 
-     updateUser(updateUser: UserUpdateDTO): User{
+     updateUser(id: number, updateUser: UserUpdateDTO): User{
           return {} as User
      };
      

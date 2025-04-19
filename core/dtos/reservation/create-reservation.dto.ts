@@ -1,5 +1,7 @@
+import { User } from "@/core/models/User"
+
 export type CreateReservationDTO = {
-     idUser: string,
-     Event: Event,
+     idUser: User,
+     idEvent: number,
      numberPlace: number
 }

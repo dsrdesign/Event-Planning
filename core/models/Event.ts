@@ -1,13 +1,13 @@
 import { Category } from "./Category"
 
 export type Event = {
-     id: string,
+     id: number,
      title: string,
      date: Date,
      time: string
      location: string,
      capacity: number,
-     decription: string,
-     image: string,
+     description: string,
+     image?: string,
      category: Category
 }

@@ -1,7 +1,8 @@
 export type User = {
-     id: string,
-     fullName: string,
-     email: string
+     id: number,
+     name: string,
+     email: string,
+     password: string,
      phone: number,
      role: "ADMIN" | "CUSTOMER"
 }

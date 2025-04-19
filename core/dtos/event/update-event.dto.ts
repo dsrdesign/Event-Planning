@@ -4,7 +4,7 @@ export type UpdateEventDTO = {
      time: string
      location: string,
      capacity: number,
-     decription: string,
+     description: string,
      image: string,
-     idCategory: string
+     idCategory: number
 }

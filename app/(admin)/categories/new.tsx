@@ -1,0 +1,95 @@
+import { useAuth } from "@/contexts/auth-provider";
+import { useRouter } from "expo-router";
+import { useState } from "react";
+import { View, Text, Button, TextInput, ToastAndroid } from "react-native";
+
+export default function NewCategory() {
+  const router = useRouter();
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [errors, setErrors] = useState({
+    title: false,
+    description: false,
+  });
+
+  const showToast = (message: string) => {
+    ToastAndroid.showWithGravity(
+      message,
+      ToastAndroid.SHORT,
+      ToastAndroid.TOP,
+    );
+  };
+
+  const handleTitleChange = (value: string) => {
+    setTitle(value);
+    setErrors((prev) => ({ ...prev, title: value.trim() === '' }));
+  };
+
+  const handleDescriptionChange = (value: string) => {
+    setDescription(value);
+    setErrors((prev) => ({ ...prev, description: value.trim() === '' }));
+  };
+
+  const handleSubmit = () => {
+    const newErrors = {
+      title: title.trim() === '',
+      description: description.trim() === '',
+    };
+
+    setErrors(newErrors); // Met à jour les erreurs
+
+    if (newErrors.title || newErrors.description) {
+      showToast("Tous les champs sont requis.");
+      return;
+    }
+
+    // Logique d'enregistrement de la catégorie
+    showToast("Catégorie enregistrée avec succès !");
+    // Redirigez l'utilisateur ou effectuez d'autres actions
+    router.push("/categories"); // Exemple de redirection
+  };
+
+  return (
+    <View style={{ paddingHorizontal: 20, paddingTop: 50, gap: 20 }}>
+      <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#59570C' }}>Nouvelle catégorie</Text>
+      <Text style={{ fontSize: 18 }}>
+        {`Bon retour, Vous nous avez manqué`}
+      </Text>
+      <View style={{ gap: 15 }}>
+        <TextInput
+          onChangeText={handleTitleChange}
+          value={title}
+          autoCapitalize="none"
+          style={{
+            borderStyle: 'solid',
+            borderWidth: 1,
+            padding: 15,
+            borderColor: errors.title ? 'red' : '#000', // Couleur de la bordure pour l'erreur
+          }}
+          placeholder="Titre"
+        />
+        {errors.title && (
+          <Text style={{ color: 'red' }}>Le titre est requis.</Text>
+        )}
+        <TextInput
+          onChangeText={handleDescriptionChange}
+          value={description}
+          style={{
+            borderStyle: 'solid',
+            borderWidth: 1,
+            padding: 15,
+            height: 150,
+            textAlignVertical: 'top',
+            borderColor: errors.description ? 'red' : '#000', // Couleur de la bordure pour l'erreur
+          }}
+          placeholder="Description"
+          multiline={true}
+        />
+        {errors.description && (
+          <Text style={{ color: 'red' }}>La description est requise.</Text>
+        )}
+      </View>
+      <Button color={"#59570C"} title="Enregistrer" onPress={handleSubmit} />
+    </View>
+  );
+}

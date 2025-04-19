@@ -14,11 +14,11 @@ export class HttpCategory implements CategoryRepository {
           return {} as Category
      };
      
-     updateCategory(updateCategory: UpdateCategoryDTO): Category{
-          return {} as Category
+     updateCategory(id: number, updateCategory: UpdateCategoryDTO): boolean{
+          return {} as boolean
      };
 
-     deleteCategory(): boolean{
+     deleteCategory(id: number ): boolean{
           return {} as true
      }
 }

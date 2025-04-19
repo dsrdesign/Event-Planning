@@ -1,5 +1,6 @@
 import { CreateEventDTO } from "@/core/dtos/event/create-event.dto"
 import { UpdateEventDTO } from "@/core/dtos/event/update-event.dto"
+import { Event } from "@/core/models/Event"
 import { EventRepository } from "@/core/repositories/event.repository"
 
 
@@ -9,7 +10,7 @@ export class HttpEvent implements EventRepository {
           return [] as Event[]
      };
 
-     getOneEvent(idEvent: string): Event{
+     getOneEvent(idEvent: number): Event{
           return {} as Event
      };
 
@@ -17,11 +18,15 @@ export class HttpEvent implements EventRepository {
           return {} as Event
      };
 
-     updateEvent(updateEvent: UpdateEventDTO): Event{
-          return {} as Event
+     updateEvent(id: number, updateEvent: UpdateEventDTO): boolean{
+          return {} as boolean
+     };
+
+     updateCapcityEvent(idEvent: number, capacity: number): boolean{
+          return {} as boolean
      };
      
-     deleteEvent(idEvent: string): boolean{
-          return true
+     deleteEvent(idEvent: number): boolean{
+          return {} as boolean
      };
 }

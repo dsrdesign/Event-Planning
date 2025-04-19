@@ -1,5 +1,5 @@
 export type UpdateReservationDTO = {
-     idUser: string,
-     Event: Event,
+     idUser: number,
+     idEvent: number,
      numberPlace: number
 }
