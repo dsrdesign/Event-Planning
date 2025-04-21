@@ -7,7 +7,7 @@ import { EventGateway, ReservationGateway } from "@/config/providers";
 import { RootView } from "@/components/RootView";
 import { useState } from "react";
 import { useAuth } from "@/contexts/auth-provider";
-import { Reservation } from "@/core/models/Reservation";
+import { Reservation } from "@/domain/models/Reservation";
 import Toast from 'react-native-toast-message';
 
 

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Reservation } from '@/core/models/Reservation';
+import { Reservation } from '@/domain/models/Reservation';
 import { RESERVATIONS } from '@/constants/reservations';
 
 type ReservationStore = {
@@ -7,8 +7,8 @@ type ReservationStore = {
      reservations: Reservation[];
      addReservation: (reservation: Reservation) => void;
      getReservationById: (id: number) => Reservation | undefined;
-     getReservationsByUserId: (userId: number) => Reservation[]; // Méthode pour obtenir les réservations par utilisateur
-     getReservationsByEventId: (eventId: number) => Reservation[]; // Méthode pour obtenir les réservations par événement
+     getReservationsByUserId: (userId: number) => Reservation[]; 
+     getReservationsByEventId: (eventId: number) => Reservation[]; 
 };
 
 export const useReservationStore = create<ReservationStore>((set, get) => ({

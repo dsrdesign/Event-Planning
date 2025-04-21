@@ -1,12 +1,12 @@
-import { ReservationCard } from "@/components/event/ReservationCard";
+import { ReservationCard } from "@/components/reservation/ReservationCard";
 import { RootView } from "@/components/RootView";
 import { COLORS } from "@/constants/colors";
 import { useAuth } from "@/contexts/auth-provider";
-import { Reservation } from "@/core/models/Reservation";
-import { GetReservationsByCustomerUseCase } from "@/core/use-cases/reservation/get-reservation-byCustomer.use-case";
+import { Reservation } from "@/domain/models/Reservation";
+import { GetReservationsByCustomerUseCase } from "@/domain/use-cases/reservation/get-reservation-byCustomer.use-case";
 import { useRepositories } from "@/hooks/useRepositorie";
 import { Ionicons } from "@expo/vector-icons";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect } from "expo-router";
 import { useState } from "react";
 import {FlatList, ScrollView, TouchableOpacity } from "react-native";
 import { View, Text, StyleSheet } from "react-native";
@@ -23,22 +23,17 @@ export default function CustomerReservations() {
   useFocusEffect(() => {
     const newReservations = getReservationsByCustomerUseCase.execute(idUser)
     setReservations(newReservations);
-  }, );
+  }, undefined );
 
   return (
-    <ScrollView>
       <RootView style={{ paddingBottom: 30 }}>
-        <View style={{ paddingHorizontal: 20 }}>
-          <TouchableOpacity style={styles.button}>
-            <Ionicons name="notifications-outline" size={24} color={colors.grayDark} />
-          </TouchableOpacity>
-        </View>
-        <View style={{ paddingHorizontal: 20, paddingTop: 0 }}>
+       
+        <View style={{ padding: 25, backgroundColor: '#FFFFFF', marginTop: 10, borderRadius: 5, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <Text style={{ fontSize: 28, color: colors.primary, fontWeight: 'bold' }}>{`Mes reservations`}</Text>
         </View>
         
 
-        <View>
+        <View style={{flex:1}}>
           <FlatList
             data={reservations}
             nestedScrollEnabled
@@ -52,7 +47,6 @@ export default function CustomerReservations() {
         </View>
 
       </RootView>
-    </ScrollView>
 
 
   );

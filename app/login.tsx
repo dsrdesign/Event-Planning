@@ -1,7 +1,9 @@
+import { RootView } from "@/components/RootView";
+import { COLORS } from "@/constants/colors";
 import { useAuth } from "@/contexts/auth-provider";
 import { Link, useRouter } from "expo-router";
 import { useState } from "react";
-import { Button, Text, TextInput, ToastAndroid, View } from "react-native";
+import { Button, Pressable, Text, TextInput, ToastAndroid, View } from "react-native";
 
 const Login = () => {
   const { login, user } = useAuth();
@@ -28,7 +30,7 @@ const Login = () => {
       console.log("Login: Customer user detected, redirecting to events...");
       router.replace("/");
     }
-    
+
   };
 
   const showToast = (message: string) => {
@@ -40,30 +42,35 @@ const Login = () => {
   };
 
   return (
-    <View style={{ paddingHorizontal: 20, paddingTop: 100, gap: 20 }}>
-      <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#59570C' }}>Connectez Vous</Text>
-      <Text style={{ fontSize: 28 }}>
-        {`Bon retour,\nVous nous avez \nmanqué`}
-      </Text>
-      <View style={{ gap: 15 }}>
-        <TextInput onChangeText={setEmail} value={email} autoCapitalize="none" style={{ borderStyle: 'solid', borderWidth: 1, padding: 15 }} placeholder="Email"></TextInput>
-        <TextInput onChangeText={setPassword} value={password} secureTextEntry style={{ borderStyle: 'solid', borderWidth: 1, padding: 15 }} placeholder="Mot de pase"></TextInput>
-      </View>
-      <Button color={"#59570C"} title="Se connecter" onPress={handleLogin} />
-      {/* <Link href={{ pathname: "/admin" }} asChild>
-                      <TouchableOpacity style={{ width: '100%', height: 60, alignItems: 'center', justifyContent: 'center', backgroundColor: '#59570C', borderRadius: 10 }}>
-                           <Text style={{ color: 'white' }}>Se connecter</Text>
-                      </TouchableOpacity>
-                 </Link> */}
+    <RootView style={{width: '100%', justifyContent: 'center'}}>
+      <View style={{ paddingHorizontal: 20, gap: 20 }}>
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#59570C' }}>Connectez Vous</Text>
+        <Text style={{ fontSize: 24 }}>
+          {`Bon retour,vous nous \navez manqué`}
+        </Text>
 
-      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-        <Text>Vous n’avez pas de compte ? </Text>
-        <Link href={{ pathname: "/register" }} asChild>
-          <Text style={{ fontWeight: 'bold' }}>S’inscrire</Text>
-        </Link>
-      </View>
+        <View style={{ gap: 15 }}>
+          <TextInput onChangeText={setEmail} value={email} autoCapitalize="none" style={{ borderStyle: 'solid', borderWidth: 1, borderRadius: 5, padding: 15 }} placeholder="Email"></TextInput>
+          <TextInput onChangeText={setPassword} value={password} secureTextEntry style={{ borderStyle: 'solid', borderWidth: 1, borderRadius: 5, padding: 15 }} placeholder="Mot de pase"></TextInput>
+        </View>
 
-    </View>
+        <Text style={{ alignSelf: 'flex-end' }}>Mot de passe oubliè ?</Text>
+
+        <Pressable onPress={handleLogin} style={{ backgroundColor: COLORS.primary, padding: 15, alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
+          <Text style={{ color: COLORS.grayWhite }}>Se connecter</Text>
+        </Pressable>
+
+
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          <Text>Vous n’avez pas de compte ? </Text>
+          <Pressable onPress={() => router.push(`/register`)}>
+            <Text style={{ fontWeight: 'bold' }}>S’inscrire</Text>
+          </Pressable>
+        </View>
+
+      </View>
+    </RootView>
+
   )
 };
 

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Event } from '@/core/models/Event';
+import { Event } from '@/domain/models/Event';
 import { EVENTS } from '@/constants/events';
 
 type EventStore = {

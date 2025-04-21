@@ -1,11 +1,7 @@
-import { Category } from "../core/models/Category";
+import { Category } from "../domain/models/Category";
 
 export const CATEGORIES: Category[] = [
-  {
-    id: 0,
-    title: "Tous",
-    description: "Description"
-  },
+
   {
     id: 1,
     title: "Concerts",

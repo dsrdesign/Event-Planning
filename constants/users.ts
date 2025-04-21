@@ -1,4 +1,4 @@
-import { User } from "../core/models/User";
+import { User } from "../domain/models/User";
 
 export const MOCK_USERS = [
      {

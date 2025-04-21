@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { MOCK_USERS } from "@/constants/users";
-import { User } from "@/core/models/User";
+import { User } from "@/domain/models/User";
 import React from "react";
 
 type AuthContextType = {

@@ -1,4 +1,4 @@
-import { Event } from "@/core/models/Event";
+import { Event } from "@/domain/models/Event";
 
 export const EVENTS : Event[] = [
      {

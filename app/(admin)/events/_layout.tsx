@@ -8,8 +8,9 @@ export default function EventLayout() {
       }}
     >
       <Stack.Screen name="index" options={{ title: "Tous les evenments" }} />
-      <Stack.Screen name="[id]" options={{ title: "Détail d'un événement" }} />
       <Stack.Screen name="new" options={{ title: "Créer un événement" }} />
+      <Stack.Screen name="reservation/[id]" options={{ title: "Reservation d'un événement" }} />
+      <Stack.Screen name="update/[id]" options={{ title: "Mise à jour d'un événement" }} />
     </Stack>
   );
 }

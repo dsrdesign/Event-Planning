@@ -1,9 +1,10 @@
 import { RootView } from "@/components/RootView";
+import { Row } from "@/components/Row";
 import { COLORS } from "@/constants/colors";
 import { useAuth } from "@/contexts/auth-provider";
-import { Ionicons } from "@expo/vector-icons";
+import { AntDesign, FontAwesome, Fontisto, Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { View, Text, Button, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, Button, ScrollView, TouchableOpacity, StyleSheet, Pressable } from "react-native";
 
 export default function AdminProfile() {
   const { logout, user } = useAuth();
@@ -20,50 +21,61 @@ export default function AdminProfile() {
   const colors = COLORS
 
   return (
-    <ScrollView>
-      <RootView style={{ paddingBottom: 30, flex: 1, flexDirection: 'column', justifyContent: 'space-between' }}>
+      <RootView>
+        <View style={{ padding: 25, backgroundColor: '#FFFFFF', marginTop: 10, borderRadius: 5, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Text style={{ fontSize: 28, fontWeight: 'bold', color: '#59570C' }}>Mon Profil</Text>
 
-        <View style={{ paddingHorizontal: 20, flex: 1 }}>
-          <View>
-            <TouchableOpacity style={styles.button}>
-              <Ionicons name="notifications-outline" size={24} color={colors.grayDark} />
-            </TouchableOpacity>
-          </View>
-          <View >
-            <Text style={{ fontSize: 28, color: colors.primary, fontWeight: 'bold', marginTop: 20 }}>{`Mon Profil`}</Text>
+        </View>
+        <ScrollView>
 
-            <Text style={{ fontSize: 18, marginTop: 20 }}>Retrouvez vos information personnelles</Text>
+        <View style={{ paddingHorizontal: 20, paddingVertical: 15, flex: 1, justifyContent: 'space-between', gap: 10 }}>
 
-            <View style={{gap: 30, marginTop:30}}>
-              <View>
-                <Text style={{fontSize: 18, fontWeight: 'bold'}}>Name</Text>
-                <Text>{user?.name}</Text>
-              </View>
 
-              <View>
-                <Text style={{fontSize: 18, fontWeight: 'bold'}}>Télephone</Text>
-                <Text>{user?.phone}</Text>
-              </View>
+          <Text style={{ fontSize: 18,}}>{`Retrouvez vos informations \npersonnelles`}</Text>
 
-              <View>
-                <Text style={{fontSize: 18, fontWeight: 'bold'}}>Email</Text>
-                <Text>{user?.email}</Text>
-              </View>
+          <View style={{ gap: 10 }}>
+            <View style={{ backgroundColor: colors.grayWhite, padding: 20, borderRadius: 5 }}>
+              <Row gap={10}>
+                <AntDesign name="user" size={38} color="black" />
+                <View>
+                  <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Name</Text>
+                  <Text>{user?.name}</Text>
+                </View>
+              </Row>
+
             </View>
 
+            <View style={{ backgroundColor: colors.grayWhite, padding: 20, borderRadius: 5 }}>
+              <Row gap={10}>
+                <FontAwesome name="phone" size={38} color="black" />
+                <View>
+                  <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Télephone</Text>
+                  <Text>{user?.phone}</Text>
+                </View>
+              </Row>
 
+            </View>
+
+            <View style={{ backgroundColor: colors.grayWhite, padding: 20, borderRadius: 5 }}>
+              <Row gap={10}>
+                <Fontisto name="email" size={38} color="black" />
+                <View>
+                  <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Email</Text>
+                  <Text>{user?.email}</Text>
+                </View>
+              </Row>
+            </View>
           </View>
+
+          <Pressable onPress={handlelogout} style={{ backgroundColor: COLORS.primary, padding: 15, alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
+          <Text style={{ color: COLORS.grayWhite }}>Se déconnecter</Text>
+        </Pressable>
         </View>
+        </ScrollView>
 
 
 
-
-
-        <View style={{ paddingHorizontal: 20, flex: 1, marginTop: 20 }}>
-          <Button title="Se déconnecter" color={colors.primary} onPress={handlelogout} />
-        </View>
       </RootView>
-    </ScrollView>
 
   );
 }

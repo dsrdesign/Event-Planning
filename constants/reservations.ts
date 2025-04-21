@@ -1,4 +1,4 @@
-import { Reservation } from "@/core/models/Reservation";
+import { Reservation } from "@/domain/models/Reservation";
 import { EVENTS } from "./events";
 import { MOCK_USERS } from "./users";
 

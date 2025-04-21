@@ -1,12 +1,12 @@
 import { create } from 'zustand';
-import { Category } from '@/core/models/Category';
+import { Category } from '@/domain/models/Category';
 import { CATEGORIES } from '@/constants/categories';
 
 type CategoryStore = {
      categories: Category[];
      addCategory: (category: Category) => void;
-     updateCategory: (id: number, updatedCategory: Category) => void; // Utilisez `number` si l'ID est de type number
-     deleteCategory: (id: number) => void; // Utilisez `number` si l'ID est de type number
+     updateCategory: (id: number, updatedCategory: Category) => void; 
+     deleteCategory: (id: number) => void; 
      getCategoryById: (id: number) => Category | undefined;
 };
 
