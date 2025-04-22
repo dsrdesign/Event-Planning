@@ -11,6 +11,7 @@ type AuthContextType = {
   user: User | null;
   login: (email: string, password: string) => boolean;
   logout: () => void;
+  refreshUsers:() => void;
   loading: boolean;
 };
 
@@ -18,6 +19,7 @@ const AuthContext = createContext<AuthContextType>({
   user: null,
   login: () => false,
   logout: () => {},
+  refreshUsers: () => {},
   loading: true,
 });
 
@@ -31,15 +33,11 @@ export const AuthProvider : React.FC<React.PropsWithChildren> = ({ children })  
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState<User[]>([])
 
-  useFocusEffect(() => {
-    const listUsers  = getAllUsersUseCase.execute()
-    setUsers(listUsers)
-  }, undefined );
+
 
 
   useEffect(() => {
     console.log("AuthProvider: Initializing...");
-    console.log("AuthProvider: USERS =", USERS);
     setTimeout(() => {
       setUser(null);
       setLoading(false);
@@ -47,7 +45,20 @@ export const AuthProvider : React.FC<React.PropsWithChildren> = ({ children })  
     }, 500);
   }, []);
 
+  const refreshUsers = () => {
+    const listUsers  = getAllUsersUseCase.execute()
+    setUsers(listUsers)
+  };
+
+  useFocusEffect(() => {
+    const listUsers  = getAllUsersUseCase.execute()
+    setUsers(listUsers)
+    console.log("List des utilisateurs", users);
+  }, undefined );
+
   const login = (email: string, password: string): boolean => {
+    const listUsers  = getAllUsersUseCase.execute()
+    setUsers(listUsers)
     const found = users.find(
       u => u.email === email && u.password === password
     );
@@ -66,7 +77,7 @@ export const AuthProvider : React.FC<React.PropsWithChildren> = ({ children })  
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, logout, refreshUsers, loading }}>
       {children}
     </AuthContext.Provider>
   );

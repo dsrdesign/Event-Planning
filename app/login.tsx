@@ -1,12 +1,13 @@
 import { RootView } from "@/components/RootView";
 import { COLORS } from "@/constants/colors";
 import { useAuth } from "@/contexts/auth-provider";
-import { Link, useRouter } from "expo-router";
+import { Link, useFocusEffect, useRouter } from "expo-router";
+import React from "react";
 import { useState } from "react";
 import { Alert, Button, Pressable, Text, TextInput, ToastAndroid, View } from "react-native";
 
 const Login = () => {
-  const { login, user } = useAuth();
+  const { login, user, refreshUsers } = useAuth();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,6 +41,13 @@ const Login = () => {
       ToastAndroid.TOP,
     );
   };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      // Appelé à chaque fois que la page devient active
+      refreshUsers(); // Cette méthode doit mettre à jour `user` dans ton context
+    }, [])
+  );
 
   return (
     <RootView style={{width: '100%', justifyContent: 'center'}}>
