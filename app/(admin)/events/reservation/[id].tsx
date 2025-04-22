@@ -1,4 +1,4 @@
-import { DeleteModal } from "@/components/category/deleteModal";
+import { DeleteModal } from "@/components/deleteModal";
 import { RootView } from "@/components/RootView";
 import { Row } from "@/components/Row";
 import { COLORS } from "@/constants/colors";
@@ -10,7 +10,7 @@ import { useRepositories } from "@/hooks/useRepositorie";
 import { AntDesign, Feather, Ionicons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useRef, useState } from "react";
-import { FlatList, Image, Pressable, ScrollView, Text, View } from "react-native";
+import { Alert, FlatList, Image, Pressable, ScrollView, Text, View } from "react-native";
 
 const ReservationsEvent = () => {
 
@@ -38,6 +38,7 @@ const ReservationsEvent = () => {
     if (confirmed && eventToDelete) {
       // Logique pour gérer la confirmation
       deleteEventUseCase.execute(eventToDelete);
+      Alert.alert("Succès", "Evènement supprimé avec succès !");
       console.log("L'utilisateur a confirmé la suppression de la catégorie :", eventToDelete);
       router.push(`/(admin)/events`)
       // Ajoutez ici la logique pour supprimer la catégorie

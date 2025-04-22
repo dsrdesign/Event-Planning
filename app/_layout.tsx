@@ -4,14 +4,15 @@ import { Stack, Slot } from "expo-router";
 
 export default function RootLayout() {
   return (
-    <AuthProvider>
-      <RepositoryProvider>
+    <RepositoryProvider>
+      <AuthProvider>
         <Stack screenOptions={{ headerShown: false }}>
           {/* Slot permet à expo-router de gérer dynamiquement les routes */}
           <Slot />
         </Stack>
-      </RepositoryProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </RepositoryProvider>
+
   );
 }
 

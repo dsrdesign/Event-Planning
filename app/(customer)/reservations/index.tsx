@@ -34,6 +34,13 @@ export default function CustomerReservations() {
         
 
         <View style={{flex:1}}>
+          {
+            reservations.length === 0 && (
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={{ fontSize: 18, color: colors.primary }}>Aucune réservation trouvée</Text>
+              </View>
+            )
+          }
           <FlatList
             data={reservations}
             nestedScrollEnabled

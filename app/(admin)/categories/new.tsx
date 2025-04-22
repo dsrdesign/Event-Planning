@@ -3,7 +3,7 @@ import { CreateCategoryUseCase } from "@/domain/use-cases/category/create-catego
 import { useRepositories } from "@/hooks/useRepositorie";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { View, Text, Button, TextInput, ToastAndroid, Pressable } from "react-native";
+import { View, Text, Button, TextInput, ToastAndroid, Pressable, Alert } from "react-native";
 
 export default function NewCategory() {
   const router = useRouter();
@@ -49,7 +49,7 @@ export default function NewCategory() {
     }
     createCategoryUseCase.execute({ title, description })
     // Logique d'enregistrement de la catégorie
-    showToast("Catégorie enregistrée avec succès !");
+    Alert.alert("Succès", "Catégorie enregistrée avec succès !");
     // Redirigez l'utilisateur ou effectuez d'autres actions
     router.push("/(admin)/categories"); // Exemple de redirection
   };

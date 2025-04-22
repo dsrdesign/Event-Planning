@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, Text, ScrollView, StyleSheet, Pressable } from "react-native";
+import { View, TextInput, Button, Text, ScrollView, StyleSheet, Pressable, Alert } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from "@react-native-picker/picker";
@@ -50,15 +50,18 @@ const CreateEvent = () => {
         // Validation manuelle
         if (!data.title.trim()) {
             setError("title", { message: "Le titre est requis" });
+            Alert.alert("Echec", "Le titre est requis !");
             return;
         }
 
         if (!data.description.trim()) {
             setError("description", { message: "La description est requise" });
+            Alert.alert("Echec", "La description est requise !");
             return;
         }
 
         if (isNaN(Number(data.capacity)) || Number(data.capacity) <= 0) {
+            Alert.alert("Echec", "Capacité invalide !");
             setError("capacity", { message: "Capacité invalide" });
             return;
         }
@@ -68,9 +71,10 @@ const CreateEvent = () => {
             ...data,
             capacity: Number(data.capacity),
         };
-
-        console.log("Événement à créer :", payload);
+        
         createEventUseCase.execute(payload)
+        console.log("Événement à créer :", payload);
+        Alert.alert("Succès", "Événement crée avec success !");
         router.push("/(admin)/events");
         // Appelle ton use case ici
     };

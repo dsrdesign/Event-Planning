@@ -3,7 +3,7 @@ import { COLORS } from "@/constants/colors";
 import { useAuth } from "@/contexts/auth-provider";
 import { Link, useRouter } from "expo-router";
 import { useState } from "react";
-import { Button, Pressable, Text, TextInput, ToastAndroid, View } from "react-native";
+import { Alert, Button, Pressable, Text, TextInput, ToastAndroid, View } from "react-native";
 
 const Login = () => {
   const { login, user } = useAuth();
@@ -16,7 +16,7 @@ const Login = () => {
     const success = login(email, password);
     if (!success) {
       setError("Invalid credentials")
-      showToast("Oups, vérifiez vos identifiants et réessayer !")
+      Alert.alert("Oups", "Vérifiez vos identifiants et réessayer !");
       return
     };
     showToast("Vous êtes connnecté !")

@@ -1,7 +1,11 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { MOCK_USERS } from "@/constants/users";
+import { USERS } from "@/constants/users";
 import { User } from "@/domain/models/User";
 import React from "react";
+import { useRepositories } from "@/hooks/useRepositorie";
+import { GetOneUserUseCase } from "@/domain/use-cases/user/getOne-user.use-case";
+import { GetAllUsersUseCase } from "@/domain/use-cases/user/getAll-user-case";
+import { useFocusEffect } from "expo-router";
 
 type AuthContextType = {
   user: User | null;
@@ -18,25 +22,33 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export const AuthProvider : React.FC<React.PropsWithChildren> = ({ children })  => {
-  console.log("AuthProvider: Rendering...");
+
+  const { userRepository } = useRepositories();
+  const getOneUserUseCase = new GetOneUserUseCase(userRepository); 
+  const getAllUsersUseCase = new GetAllUsersUseCase(userRepository); 
+  
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [users, setUsers] = useState<User[]>([])
+
+  useFocusEffect(() => {
+    const listUsers  = getAllUsersUseCase.execute()
+    setUsers(listUsers)
+  }, undefined );
+
 
   useEffect(() => {
     console.log("AuthProvider: Initializing...");
-    console.log("AuthProvider: MOCK_USERS =", MOCK_USERS);
+    console.log("AuthProvider: USERS =", USERS);
     setTimeout(() => {
-      // Simulez un utilisateur connecté pour les tests
-      const defaultUser = MOCK_USERS[0]; // Remplacez par une logique réelle si nécessaire
       setUser(null);
       setLoading(false);
-      console.log("AuthProvider: User set to", defaultUser);
       console.log("AuthProvider: Loading set to false");
     }, 500);
   }, []);
 
   const login = (email: string, password: string): boolean => {
-    const found = MOCK_USERS.find(
+    const found = users.find(
       u => u.email === email && u.password === password
     );
     if (found) {

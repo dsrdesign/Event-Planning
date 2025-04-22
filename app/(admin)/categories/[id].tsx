@@ -5,7 +5,7 @@ import { UpdateCategoryUseCase } from "@/domain/use-cases/category/update-catego
 import { useRepositories } from "@/hooks/useRepositorie";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
-import { View, Text, Button, TextInput, ToastAndroid, Pressable } from "react-native";
+import { View, Text, Button, TextInput, ToastAndroid, Pressable, Alert } from "react-native";
 
 export default function EditCategory() {
   const { categoryRepository } = useRepositories();
@@ -51,12 +51,12 @@ export default function EditCategory() {
     setErrors(newErrors); // Met à jour les erreurs
 
     if (newErrors.title || newErrors.description) {
-      showToast("Tous les champs sont requis.");
+      Alert.alert("Echec", "Tous les champs sont requis !");
       return;
     }
     updateCategoryUseCase.execute(+id, { title, description })
     // Logique d'enregistrement de la catégorie
-    showToast("Catégorie enregistrée avec succès !");
+    Alert.alert("Succès", "Catégorie mis à jour avec success !");
     // Redirigez l'utilisateur ou effectuez d'autres actions
     router.push("/categories"); // Exemple de redirection
   };

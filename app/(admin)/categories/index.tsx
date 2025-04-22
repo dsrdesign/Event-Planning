@@ -1,11 +1,11 @@
 import { Category } from "@/domain/models/Category";
 import { Ionicons } from "@expo/vector-icons";
-import { Pressable, StyleSheet, Text, TouchableOpacity, View, FlatList } from "react-native";
+import { Pressable, StyleSheet, Text, TouchableOpacity, View, FlatList, Alert } from "react-native";
 import { router, useFocusEffect } from "expo-router";
 import { GetAllCategoriesUseCase } from "@/domain/use-cases/category/getAll-categories.use-case";
 import { useRepositories } from "@/hooks/useRepositorie";
 import { useState } from "react";
-import { DeleteModal } from "@/components/category/deleteModal";
+import { DeleteModal } from "@/components/deleteModal";
 import { DeleteCategoryUseCase } from "@/domain/use-cases/category/delete-categoy.use-case";
 import { COLORS } from "@/constants/colors";
 import { RootView } from "@/components/RootView";
@@ -24,6 +24,7 @@ export default function AdminCategories() {
     if (confirmed && categoryToDelete) {
       // Logique pour gérer la confirmation
       deleteCategoryUseCase.execute(categoryToDelete);
+      Alert.alert("Succès", "Catégorie supprimée avec success !");
       console.log("L'utilisateur a confirmé la suppression de la catégorie :", categoryToDelete);
       // Ajoutez ici la logique pour supprimer la catégorie
     } else {

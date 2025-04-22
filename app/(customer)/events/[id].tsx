@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, Button, Pressable, ToastAndroid } from "react-native";
+import { View, Text, Image, ScrollView, Button, Pressable, ToastAndroid, Alert } from "react-native";
 import { useRouter, useLocalSearchParams, Stack, useFocusEffect } from "expo-router";
 import { Row } from "@/components/Row";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
@@ -35,12 +35,12 @@ const EventDetails = () => {
       event.capacity = event?.capacity - numberPlace
     }
     if (!true) {
-      showToast('Reseravtion échouée, veuillez ressayer !')
+      Alert.alert("Oups", "La reseravtion n'a pas pu être enregistré, veuillez réessayer !");
       return
     }
 
     console.log("Reservation effectuée :", user);
-    showToast('Reservation effectué avec success !')
+    Alert.alert("Succès", "Reservation effectuée avec success !");
     setIsReserve(false)
 
   }

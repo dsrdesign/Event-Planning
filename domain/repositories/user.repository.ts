@@ -1,6 +1,9 @@
-import { UserUpdateDTO } from "../dtos/user/user-update.dto";
+import { CreateUserDTO } from "../dtos/user/create-user.dto";
 import { User } from "../models/User";
 
 export interface UserRepository{
-     updateUser(id: number, updateUser: UserUpdateDTO): User;
+     getAllUser(): User[];
+     createUser(newUser: CreateUserDTO): User;
+     getOneUser(idUser: number): User ;
+
 }

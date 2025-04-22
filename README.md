@@ -1,50 +1,165 @@
-# Welcome to your Expo app 👋
+# EventBooking - Application de réservation d'événements
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Une application mobile développée avec **React Native via Expo** permettant aux utilisateurs de réserver des places pour des événements, consulter leurs réservations et gérer leur profil.  
+Ce projet suit une **architecture hexagonale (Clean Architecture)** afin de garantir une séparation claire des responsabilités, une testabilité optimale et une grande maintenabilité.
 
-## Get started
+---
 
-1. Install dependencies
+## Démarrage rapide
 
-   ```bash
-   npm install
-   ```
+### Prérequis
 
-2. Start the app
-
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+- Node.js >= 18
+- Expo CLI installé globalement :
 
 ```bash
-npm run reset-project
+npm install -g expo-cli
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Installation
 
-## Learn more
+```bash
+git clone https://github.com/dsrdesign/Event-Planning.git
+cd Event-Planning
+npm install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### Lancer l'application
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npx expo start
+```
 
-## Join the community
+Scanner le QR code avec l'application **Expo Go** pour tester sur un appareil mobile.
 
-Join our community of developers creating universal apps.
+---
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Architecture du projet
+
+L'application est structurée selon une **architecture hexagonale (ou onion)** avec une séparation nette entre le **Domaine** (logique métier) et l’**Infrastructure** (UI, stockage, navigation...).
+
+### I. Domaine (Core)
+
+#### 1. Models
+
+Contient les entités métier (`User`, `Event`, `Reservation`, etc.).
+
+#### 2. Use Cases
+
+Contient les cas d’usage représentant la logique métier (ex : `CreateReservationUseCase`, `GetAllEventsUseCase`, etc.).
+
+#### 3. Repositories
+
+Définit les interfaces/contrats d’accès aux données (`EventRepository`, `ReservationRepository`, etc.).
+
+#### 4. Gateways
+
+Contient les implémentations concrètes des `repositories`, ici en **inMemory** pour simuler un backend.
+
+### II. Infrastructure (Interface, outils, persistance)
+
+#### 1. App
+
+Fichier racine initialisant les providers (auth, repositories, navigation, etc.).
+
+#### 2. Store
+
+Utilise **Zustand** pour la gestion de l’état global (ex : réservations utilisateur).
+
+#### 3. Components
+
+Composants UI réutilisables.
+
+#### 4. Constants
+
+Constantes globales (couleurs, données simulées, etc.).
+
+#### 5. Contexts
+
+Providers React (AuthProvider, RepositoryProvider...).
+
+#### 6. Hooks
+
+Hooks personnalisés (`useRepositories`, `useAuth`, etc.).
+
+#### 7. Tests
+
+Tests unitaires et d’intégration (Seuls les tests des use case sont disponible).
+
+#### 8. Assets
+
+Images, polices, illustrations, etc.
+
+---
+
+## Librairies principales
+
+| Librairie                             | Rôle                                        |
+|--------------------------------------|---------------------------------------------|
+| `expo-router`                        | Navigation inspirée de Next.js              |
+| `zustand`                            | Gestion de l'état simple et efficace       |
+| `@react-native-picker/picker`        | Composant select multiplateforme natif      |
+| `react-native-modal-datetime-picker` | Sélecteur de date/heure convivial           |
+| `react-hook-form`                    | Gestion avancée de formulaires (future)     |
+
+---
+
+## Gestion de l'état
+
+Nous avons choisi **Zustand** pour sa simplicité, sa compatibilité avec React Native, et sa capacité à persister un état local léger sans complexité inutile. Idéal pour des données comme les réservations.
+
+---
+
+## Hypothèses & Simplifications
+
+- Aucune API distante utilisée : tout est simulé en mémoire.
+- Gestion utilisateur simulée avec objets `User` injectés localement.
+- Aucune base de données : données statiques (mocks).
+- Pas de persistance locale (pas de SecureStore ou AsyncStorage).
+- Authentification simulée via un provider React.
+- Aucune validation complexe (pas de Zod ou Yup).
+- Les événements ont une date + heure unique et une capacité max simplifiée.
+
+---
+
+## Justification de l'approche
+
+### Pourquoi Clean Architecture ?
+
+- **Testabilité** : chaque couche testable indépendamment.
+- **Réutilisabilité** : logique métier découplée de l’interface.
+- **Séparation des responsabilités** : la UI ne contient aucune logique métier.
+- **Évolutivité** : facilité d’intégration d’une vraie API REST plus tard.
+
+### Pourquoi cette stack technique ?
+
+- **Expo** : expérience de dev fluide et rapide.
+- **Zustand** : état local simple, efficace, et persistant.
+- **expo-router** : routing clair, inspiré de Next.js.
+- **react-hook-form** : validation efficace et flexible (prochainement).
+
+---
+
+## Utilisateurs test
+
+| Email              | Rôle     | Mot de passe |
+|--------------------|----------|--------------|
+| kola@group.com     | ADMIN    | kola         |
+| roland@group.com   | CUSTOMER | roland       |
+
+
+
+---
+
+## 👨‍💻 À propos de Moi
+
+Je suis un développeur Mid-Level en ingénierie logiciel avec une forte sensibilité à l’architecture logicielle, la scalabilité et la maintenabilité des projets.  
+
+J’ai volontairement structuré cette solution avec une complexité maîtrisée :
+
+- Utilisation de la Clean Architecture pour garantir un découplage fort.
+- Mock de données en mémoire pour simuler un backend sans alourdir l’intégration.
+- Gestion d’état avec Zustand, plus léger que Redux pour une app mobile.
+- Séparation stricte des rôles (admin vs client) et responsabilités dans le domaine.
+
+Cette solution est conçue pour évoluer rapidement vers une API REST réelle et une persistance de données.
