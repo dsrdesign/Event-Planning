@@ -106,7 +106,7 @@ Images, polices, illustrations, etc.
 
 ## Gestion de l'état
 
-Nous avons choisi **Zustand** pour sa simplicité, sa compatibilité avec React Native, et sa capacité à persister un état local léger sans complexité inutile. Idéal pour des données comme les réservations.
+J'ai choisi **Zustand** pour sa simplicité, sa compatibilité avec React Native, et sa capacité à persister un état local léger sans complexité inutile. Idéal pour des données comme les réservations.
 
 ---
 
@@ -118,7 +118,6 @@ Nous avons choisi **Zustand** pour sa simplicité, sa compatibilité avec React 
 - Pas de persistance locale (pas de SecureStore ou AsyncStorage).
 - Authentification simulée via un provider React.
 - Aucune validation complexe (pas de Zod ou Yup).
-- Les événements ont une date + heure unique et une capacité max simplifiée.
 
 ---
 
